@@ -22,7 +22,7 @@ def main():
         print(f"Error: {file_path} not found.")
         return
 
-    df=pd.read_csv(file_path)
+    df = pd.read_csv(file_path)
     print("Datasets Loaded Successfully.Rows:{df.shape[0]},Features:{df.shape[1]}\n")
 
     print("HANDLING MISSING DATA")
@@ -31,13 +31,13 @@ def main():
     df.loc[0.25, 'H'] = np.nan
     imputer = SimpleImputer(strategy='median')
     df['H'] = imputer.fit_transform(df[['H']])
-    print("Imputation completed 'Hits' (H)")
+    print(f"Imputation completed.'Hits' (h)  now has { df['H'].isnull().sum()} null values.\n")
 
-    print(df.head())
-    print(df.tail())
+    print("Evaluating the sentence of the Runs(R) Distribution....")
 
-    print("\nBasic Statistics:")
-    print(df.describe())
 
+    df["LogRuns"] = np.log1p(df["R"])
+    print(f"Log Transformation Applied. New skewness: {df['LogRuns'].skew():.2f} (closer to 0 is perfectly balanced)\n")
+ 
 if __name__ == "__main__":
     main()
