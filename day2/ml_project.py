@@ -24,6 +24,15 @@ def main():
 
     df=pd.read_csv(file_path)
     print("Datasets Loaded Successfully.Rows:{df.shape[0]},Features:{df.shape[1]}\n")
+
+    print("HANDLING MISSING DATA")
+    print("Artificially deleting some 'Hits' (H) data to demonstrate")
+
+    df.loc[0.25, 'H'] = np.nan
+    imputer = SimpleImputer(strategy='median')
+    df['H'] = imputer.fit_transform(df[['H']])
+    print("Imputation completed 'Hits' (H)")
+
     print(df.head())
     print(df.tail())
 
