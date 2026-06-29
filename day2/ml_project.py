@@ -59,15 +59,25 @@ def main():
 
 
 
-    features_to_test=['R','HR','BB','BA']
+    features_to_test=['CS','HR','SO','SB']
 
     X_features = df[features_to_test].fillna(0)
-    Y_traget = df['W']
+    Y_target = df['W']
 
-    selector = SelectKBest(score_func = mutual_info_regression,k=2)
+    selector = SelectKBest(score_func = mutual_info_regression,k=1)
+    selector.fit(X_features, Y_target)
         
     winning_features = selector.get_support()
     best_feature = X_features.columns[winning_features].tolist()
     print(f"Best Features:{best_feature}")
+
+    X = df[best_feature]
+    Y= df['W']
+
+    X_train,X_test,y_train,y_test = train_test_split(X,Y,test_size=0.2,random_state=42)
+
+    print(f"trainning Data Size:{X_train.shape}")
+    print(f"Testing Data Size:{X_test.shape}\n")
+    
 if __name__ == "__main__":
     main()
