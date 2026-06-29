@@ -1,3 +1,4 @@
+from sklearn import linear_model
 from pandas.core.interchange import dataframe
 import pandas as pd
 import numpy as np
@@ -79,5 +80,11 @@ def main():
     print(f"trainning Data Size:{X_train.shape}")
     print(f"Testing Data Size:{X_test.shape}\n")
     
+
+    model = LinearRegression()
+    model.fit(X_train,y_train)
+
+    predictions = model.predict(X_test)
+    print(predictions)
 if __name__ == "__main__":
     main()
