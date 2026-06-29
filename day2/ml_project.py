@@ -1,3 +1,4 @@
+from narwhals._compliant import any_namespace
 from sklearn import linear_model
 from pandas.core.interchange import dataframe
 import pandas as pd
@@ -86,5 +87,20 @@ def main():
 
     predictions = model.predict(X_test)
     print(predictions)
+
+
+    actual_wins = y_test.head(3).values
+    predicted_wins = predictions[:3]
+
+    for i in range(3):
+        predicted = round(predictions[i],2)
+        actual = actual_wins[i]
+        difference = abs(actual-predicted)
+
+        print(f"Moel Gussed:{predicted}")
+        print(f"Real Answer:{actual}")
+        print(f"The Difference:{difference}")
+
 if __name__ == "__main__":
     main()
+    
